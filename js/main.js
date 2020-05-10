@@ -101,11 +101,15 @@ function checkLiteralSets(groups) {
                 return 15;
             }
 
+            literalGroups[i].sort();
+            literalGroups[j].sort();
+
+            if (compareArrays(literalGroups[i], literalGroups[j])) {
+                return 8;
+            }
 
             iLiteralsCopy.sort();
             jLiteralsCopy.sort();
-
-
 
             if (!compareArrays(iLiteralsCopy, jLiteralsCopy)) {
                 return 8;
@@ -114,16 +118,21 @@ function checkLiteralSets(groups) {
     }
 
     if(literalGroups.length === 1){
+        let error = false;
         let literalsCopy = [];
-        literalGroups[i].forEach(value => literalsCopy.push(value.replace('!', '')));
+        literalGroups[0].forEach(value => {
+            if(value.replace('!', '').length > 2){
+                error = true;
+                return;
+            }
+            literalsCopy.push(value.replace('!', ''))
+        });
         let setLiterals = new Set(literalsCopy);
 
-        if(literalsCopy.length !== setLiterals.size){
+        if(literalsCopy.length !== setLiterals.size || error){
             return 15;
         }
     }
-
-
     return 0;
 }
 
