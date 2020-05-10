@@ -120,6 +120,24 @@ function checkLiteralSets(groups) {
     if(literalGroups.length === 1){
         let error = false;
         let literalsCopy = [];
+        if(literalGroups[0].length === 1 && literalGroups[0][0].indexOf('&') > 0){
+            let litCopy = literalGroups[0][0].split('&');
+            if(litCopy.length > 2){
+                return 15;
+            }
+            if(compareArrays(litCopy[0], litCopy[1])){
+                return 15;
+            }
+            for (let j = 0; j < litCopy.length; j++){
+                litCopy[0] = litCopy[0].replace('!', '');
+            }
+
+            if (!compareArrays(litCopy[0], litCopy[1])){
+                return 15;
+            }
+            return 0;
+        }
+
         literalGroups[0].forEach(value => {
             if(value.replace('!', '').length > 2){
                 error = true;
