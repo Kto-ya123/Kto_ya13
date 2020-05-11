@@ -129,7 +129,7 @@ function checkLiteralSets(groups) {
                 return 15;
             }
             for (let j = 0; j < litCopy.length; j++){
-                litCopy[0] = litCopy[0].replace('!', '');
+                litCopy[j] = litCopy[j].replace('!', '');
             }
 
             if (!compareArrays(litCopy[0], litCopy[1])){
